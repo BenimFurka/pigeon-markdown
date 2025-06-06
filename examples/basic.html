@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pigeon Markdown - Example</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    
+    #markdown-input {
+      width: 100%;
+      min-height: 300px;
+      font-family: monospace;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    #preview {
+      border: 1px solid #ddd;
+      padding: 20px;
+      min-height: 200px;
+      border-radius: 4px;
+      background: #fff;
+    }
+    
+    h1 { 
+      color: #2c3e50;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    
+    h2 { 
+      color: #34495e;
+      margin-top: 1.3em;
+      margin-bottom: 0.5em;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    
+    h3 { 
+      color: #7f8c8d;
+      margin-top: 1.1em;
+      margin-bottom: 0.5em;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    
+    blockquote {
+      border-left: 4px solid #3498db;
+      margin: 1.5em 0;
+      padding: 0.5em 1em;
+      background-color: #f8f9fa;
+      color: #555;
+      font-style: italic;
+    }
+    
+    blockquote p {
+      margin: 0.5em 0;
+    }
+    
+    pre {
+      background-color: #f8f9fa;
+      padding: 1em;
+      border-radius: 4px;
+      overflow-x: auto;
+      border-left: 3px solid #e83e8c;
+      margin: 1.5em 0;
+    }
+    
+    code {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      background-color: rgba(27, 31, 35, 0.05);
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-size: 85%;
+    }
+    
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+    }
+    
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pigeon Markdown Example</h1>
+  
+  <div>
+    <h2>Markdown Input</h2>
+    <textarea id="markdown-input" rows="20" style="width: 100%;"># This is an H1
+
+## This is an H2
+
+### This is an H3
+
+This is a paragraph with **bold** and *italic* text. 
+
+You can also use `inline code`.
+
+H1 Alternative (Setext-style)
+============================
+
+H2 Alternative (Setext-style)
+----------------------------
+
+```javascript
+// Code block with syntax highlighting
+function hello() {
+  console.log('Hello, world!');
+  return true;
+}
+```
+
+[Link to Google](https://google.com)
+
+~~Strikethrough~~ and ~underline~ are also supported.
+
+## Another H2
+
+This is another section with some **bold** and *italic* text.
+
+### Code Examples
+
+Here's some `inline code` and a code block:
+
+```python
+def greet():
+    print("Hello from Python!")
+    return True
+```
+
+    </textarea>
+  </div>
+  
+  <div>
+    <h2>HTML Preview</h2>
+    <div id="preview"></div>
+  </div>
+
+  <script src="../dist/pigeon-markdown.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  
+  <script>
+    const markdownInput = document.getElementById('markdown-input');
+    const preview = document.getElementById('preview');
+    
+    const parser = new PigeonMarkdown({
+      features: {
+        // For disable features:
+        // strikethrough: false,
+        // underline: false
+      }
+    });
+    
+    function updatePreview() {
+      const markdown = markdownInput.value;
+      let html = parser.parse(markdown);
+      
+      const temp = document.createElement('div');
+      temp.innerHTML = html;
+      
+      preview.innerHTML = '';
+      preview.appendChild(temp);
+      
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block);
+      });
+    }
+    
+    markdownInput.addEventListener('input', updatePreview);
+    
+    updatePreview();
+  </script>
+</body>
+</html>
