@@ -9,14 +9,15 @@ A lightweight Markdown parser for browsers and Node.js.
 ```javascript
 // In browser or Node.js
 const PigeonMarkdown = require('pigeon-markdown');
-const parser = new PigeonMarkdown();
+// or import PigeonMarkdown from 'pigeon-markdown';
+const parser = new PigeonMarkdown(); // window.PigeonMarkdown in browser
 const html = parser.parse('# Hello World!');
 ```
 
 ## Features
 
 - **Text Formatting**: Bold, italic, strikethrough, underline
-- **Headings**: Support for h1-h6
+- **Headings**: Support for h1-h3
 - **Code**: Inline code and fenced code blocks with syntax highlighting
 - **Links**: Inline links with URL validation
 - **HTML**: Option to allow/disallow HTML in markdown
